@@ -1,4 +1,0 @@
-bash: /mnt/home/baburish/miniconda3/miniconda/envs/3pandelnet/lib/libtinfo.so.6: no version information available (required by bash)
-2025-09-24 11:56:59.067486: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-slurmstepd: error: Detected 1 oom_kill event in StepId=62213492.batch. Some of the step tasks have been OOM Killed.
