@@ -1,0 +1,20 @@
+****************************************************************
+You are currently in a shell with an Icetray environment loaded.
+Please exit the current shell and re-run /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/Ubuntu_22.04_x86_64/metaprojects/icetray/v1.9.2/env-shell.sh from a clean shell.
+****************************************************************
+Environment not (re)loaded.
+ERROR (PythonFunction): Error running python function as module: (PythonFunction.cxx:170 in virtual void PythonFunction::Process())
+ERROR (I3Module): framestats_0000: Exception thrown (I3Module.cxx:140 in void I3Module::Do(void (I3Module::*)()))
+Traceback (most recent call last):
+Processing file 1/999: /mnt/research/IceCube/Gupta-Reco/22644/0011000-0011999/FinalLevel_NuMu_NuGenCCNC.022644.011000.i3.zst
+  File "/mnt/home/baburish/jax/TriplePandelReco_JAX/extract_data_from_i3files/convert_i3_ftr_coinc_muonlabel.py", line 247, in <module>
+    meta_data2, pulse_data2, event_count = label_muons(i3file)
+                                           ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/baburish/jax/TriplePandelReco_JAX/extract_data_from_i3files/convert_i3_ftr_coinc_muonlabel.py", line 202, in label_muons
+    tray.Execute()
+  File "/cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/Ubuntu_22.04_x86_64/metaprojects/icetray/v1.9.2/lib/icecube/icetray/i3tray.py", line 222, in Execute
+    super().Execute()
+  File "/mnt/home/baburish/jax/TriplePandelReco_JAX/extract_data_from_i3files/convert_i3_ftr_coinc_muonlabel.py", line 142, in framestats
+    has_no_coinc = len(frame[meta_keys['bkg_mc_tree']]) == 0
+                       ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'BackgroundI3MCTree'

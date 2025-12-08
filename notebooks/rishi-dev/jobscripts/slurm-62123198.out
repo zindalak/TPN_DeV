@@ -1,0 +1,22 @@
+************************************************************************
+*                                                                      *
+*                   W E L C O M E  to  I C E T R A Y                   *
+*                                                                      *
+*                Version icetray.HEAD     git:f82e70b4                 *
+*                                                                      *
+*                You are welcome to visit our Web site                 *
+*                        http://icecube.umd.edu                        *
+*                                                                      *
+************************************************************************
+
+Icetray environment has:
+   I3_SRC       = /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/Ubuntu_22.04_x86_64/metaprojects/icetray/v1.9.2
+   I3_BUILD     = /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/Ubuntu_22.04_x86_64/metaprojects/icetray/v1.9.2
+   I3_TESTDATA  = /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/../data/i3-test-data-svn/trunk
+   I3_PRODDATA should be set to an existing directory path
+   Python       = 3.11.3
+Exited Icetray Environment.
+Traceback (most recent call last):
+  File "/mnt/home/baburish/jax/TriplePandelReco_JAX/convert_fits_to_pickle.py", line 3, in <module>
+    from icecube.clsim.tablemaker.photonics import FITSTable
+ModuleNotFoundError: No module named 'icecube'

@@ -1,0 +1,6 @@
+****************************************************************
+You are currently in a shell with an Icetray environment loaded.
+Please exit the current shell and re-run /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/Ubuntu_22.04_x86_64/metaprojects/icetray/v1.9.2/env-shell.sh from a clean shell.
+****************************************************************
+Environment not (re)loaded.
+slurmstepd: error: *** JOB 62123205 ON acm-000 CANCELLED AT 2025-09-22T14:31:53 ***

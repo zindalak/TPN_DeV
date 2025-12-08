@@ -22,7 +22,7 @@ from lib.experimental_methods import get_vertex_seeds
 from fitting.llh_scanner import get_scanner
 from fitting.llh_fitter import get_fitter
 from dom_track_eval import get_eval_network_doms_and_track
-from likelihood_conv_mpe_logsumexp_gupta import get_neg_c_triple_gamma_llh
+from likelihoods.likelihood_conv_mpe_logsumexp_gupta import get_neg_c_triple_gamma_llh
 
 # A custom color scheme
 from palettable.cubehelix import Cubehelix

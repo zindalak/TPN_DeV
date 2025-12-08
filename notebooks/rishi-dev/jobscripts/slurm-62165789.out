@@ -1,0 +1,7 @@
+bash: /mnt/home/baburish/miniconda3/miniconda/envs/3pandelnet/lib/libtinfo.so.6: no version information available (required by bash)
+Traceback (most recent call last):
+  File "/mnt/home/baburish/jax/TriplePandelReco_JAX/convert_pickle_to_tfrecords.py", line 9, in <module>
+    from helpers import load_table_from_pickle
+  File "/mnt/home/baburish/jax/TriplePandelReco_JAX/helpers.py", line 6, in <module>
+    import tensorflow as tf
+ModuleNotFoundError: No module named 'tensorflow'

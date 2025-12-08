@@ -45,7 +45,8 @@ transform_network_outputs_gupta_v = jax.jit(jax.vmap(transform_network_outputs_g
 
 def transform_network_outputs_gupta_4comp(x):
     eps = 1.e-20
-    a = 1.0 + jnp.exp(x[4:8]) + eps
+    # a = 1.0 + jnp.exp(x[4:8]) + eps
+    a = 1.0 + jax.nn.softplus(x[4:8]) + eps
     b = 1.0 / (1.e4*jax.nn.sigmoid(x[8:12]) + 0.1)
     logits = x[0:4]
     return logits, a, b
