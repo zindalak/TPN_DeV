@@ -23,7 +23,7 @@ from fitting.llh_scanner import get_scanner
 from fitting.llh_fitter import get_fitter
 from dom_track_eval import get_eval_network_doms_and_track
 from likelihood_conv_mpe_logsumexp_gupta import get_neg_c_triple_gamma_llh
-
+from lib.linefit import linefit_3d_time_np
 # A custom color scheme
 from palettable.cubehelix import Cubehelix
 cx = Cubehelix.make(start=0.3, rotation=-0.5, n=16, reverse=False, gamma=1.0,
@@ -238,6 +238,13 @@ for i in range(len(events_meta)):
         track_zenith = true_zenith
         track_azimuth = true_azimuth
         track_src = true_src
+
+    elif SEED == "linefit":
+        track_pos, track_time, _,  track_src = linefit_3d_time_np(event_data)
+        track_pos = jnp.array(np.asarray(track_pos, dtype=float))
+        track_time = jnp.array([track_time])
+        track_src = jnp.array([track_src])
+        track_src = track_src.squeeze()
 
     print("seed direction:", np.rad2deg(track_src), "deg")
     print("original seed vertex:", track_pos, "m")
