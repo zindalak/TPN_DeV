@@ -10,6 +10,7 @@ eval_charge_network_v = get_charge_network_eval_v_fn(bpath='/'.join(__file__.spl
 
 def eval_charge_network_2(dom_pos, track_vertex, track_direction):
     from lib.geo import get_xyz_from_zenith_azimuth
+    import jax
     track_dir_xyz = get_xyz_from_zenith_azimuth(track_direction)
     from lib.geo import cherenkov_cylinder_coordinates_w_rho2_v
     geo_time, closest_approach_dist, closest_approach_z, closest_approach_rho = \
