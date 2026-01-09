@@ -1,3 +1,6 @@
+import sys
+import jax.numpy as jnp
+
 
 sys.path.insert(0, '/'.join(__file__.split('/')[:-2])+'/')
 
