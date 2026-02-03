@@ -34,8 +34,8 @@ def log1m_exp(x):
     oob = arr_x < crit_oob
     mask = arr_x > crit
 
-    more_val = jnp.log(-jnp.expm1(jnp.clip(arr_x, min=crit)))
-    less_val = jnp.log1p(-jnp.exp(jnp.clip(arr_x, max=crit)))
+    more_val = jnp.log(-jnp.expm1(jnp.clip(arr_x, a_min=crit)))
+    less_val = jnp.log1p(-jnp.exp(jnp.clip(arr_x, a_max=crit)))
 
     return jnp.where(
         oob,
@@ -78,7 +78,6 @@ def multi_gupta_cdf(x, mix_probs, a, b):
     mix_probs = jnp.expand_dims(mix_probs, axis=-1)
     cdf_vals = cdf(x, a, b)
     return jnp.squeeze(jnp.sum(mix_probs * cdf_vals, axis=0))
-
 
 def c_multi_gupta_mpe_logprob_midpoint2_stable(x, log_mix_probs, a, b, n, sigma=3.0):
     """
