@@ -1,213 +1,181 @@
+## HPCC Access
 
 Login to HPCC:
 
---
+``` bash
 ssh <MSU_NETID>@hpcc.msu.edu
+```
 
 Connect to a development node:
--
+
+``` bash
 ssh dev-amd20
---
+```
 
-2. ICECUBE ENVIRONMENT ON HPCC
 
-Load IceCube CVMFS environment:
+## IceCube Environment on HPCC
 
---
-export SROOTBASE=/cvmfs/icecube.opensciencegrid.org/py3-v4.3.0
+Navigate to the repository:
 
-eval `$SROOTBASE/setup.sh`
---
+``` bash
+cd ~/projects/TPN_DeV
+```
 
-Verify:
+Load the IceCube environment:
 
---
-echo $SROOT
-
-which python
---
+``` bash
+source env.sh
+```
 
 Verify IceTray:
 
---
-python -c "from icecube import dataio; print('IceTray OK')"
---
+``` bash
+python -c "from icecube import dataio; print('IceCube OK')"
+```
 
-3. CLONE TPN_DeV
+## Clone the Repository
 
---
-cd ~
-
+``` bash
+cd ~/projects
 git clone https://github.com/rishibbdb/TPN_DeV.git
-
 cd TPN_DeV
---
+```
 
-3. PANDELNET / JAX ENVIRONMENT
---
+## Python Environment Options
+
+### Conda (Recommended)
+
+Conda is recommended because it handles scientific Python packages (JAX,
+TensorFlow, NumPy, SciPy and PyArrow) more reliably across platforms.
+
+Install Miniconda:
+
+``` bash
+cd ~
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+Initialize Conda:
+
+``` bash
+source ~/miniconda3/etc/profile.d/conda.sh
+```
+
+Create and activate the environment:
+
+``` bash
+conda create -n tpn-dev python=3.10 -y
+conda activate tpn-dev
+```
+
+Install the required dependencies following the project requirements.
+```bash
 python -m pip uninstall -y jax jaxlib ml-dtypes numpy scipy
 
-python -m pip install "numpy==1.26.4" "scipy==1.12.0"
+python -m pip install numpy==1.26.4 scipy==1.12.0
 
-python -m pip install --only-binary=:all: "ml-dtypes==0.2.0"
+python -m pip install --only-binary=:all: ml-dtypes==0.2.0
 
 python -m pip install "jax[cuda11_pip]==0.4.23" \
 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 python -m pip install tensorflow-cpu==2.15.0
 
-python -m pip install -U "equinox==0.11.10" "jaxtyping==0.3.3" --no-deps
+python -m pip install -U equinox==0.11.10 jaxtyping==0.3.3 --no-deps
 
-python -m pip install "optimistix==0.0.8" --no-deps
+python -m pip install optimistix==0.0.8 --no-deps
 
-python -m pip install "lineax==0.0.6" --no-deps
+python -m pip install lineax==0.0.6 --no-deps
 
-python -m pip install "quadax==0.2.9" --no-deps
+python -m pip install quadax==0.2.9 --no-deps
 
-python -m pip install --only-binary=:all: "pyarrow==14.0.2"
---
+python -m pip install --only-binary=:all: pyarrow==14.0.2
 
-Verify:
+python -m pip install feather-format
+```
 
---
-python -c "import jax,numpy,scipy,pyarrow; print('Environment OK')"
---
-4. REQUIRED PYTHON PACKAGES
+### Poetry
 
---
-python -m pip install --user feather-format
---
+Install Poetry:
 
-Verify:
+``` bash
+python -m pip install --user poetry
+export PATH="$HOME/.local/bin:$PATH"
+poetry --version
 
---
-python -c "import feather; print('feather OK')"
---
-6. INSTALL UBUNTU
+Initialize Poetry:
 
-Install Ubuntu from Microsoft Store.
+``` bash
+cd ~/projects/TPN_DeV
+poetry init
 
-Open Ubuntu terminal.
+poetry add numpy==1.26.4 scipy==1.12.0 pyarrow==14.0.2 tensorflow-cpu==2.15.0
 
-Update:
+poetry add jax==0.4.23 jaxlib==0.4.23
 
---
+poetry add equinox==0.11.10
+
+poetry add jaxtyping==0.3.3
+
+poetry add optimistix==0.0.8
+
+poetry add lineax==0.0.6
+
+poetry add quadax==0.2.9
+
+poetry add feather-format
+'''
+Activate:
+``` bash
+poetry shell
+```
+
+## Local IceTray Installation (Windows / WSL)
+
+Install Ubuntu from the Microsoft Store.
+
+``` bash
 sudo apt update
-
 sudo apt upgrade -y
---
+sudo apt install build-essential cmake git qtbase5-dev libqt5opengl5-dev \
+libboost-all-dev libgsl-dev libfftw3-dev python3-dev zlib1g-dev
+```
 
-Verify WSL:
+Clone and build:
 
---
-uname -a
---
-Expected:
---
-microsoft-standard-WSL2
---
-7. CLONE ICETRAY
-
---
+``` bash
 cd ~
-
-git clone https://github.com/icecube/icetray.git i3
-
-cd i3
---
-Create build directory:
---
-mkdir build
-
-cd build
---
-
-8. INSTALL ICETRAY DEPENDENCIES
---
-sudo apt install \
-build-essential \
-cmake \
-git \
-qtbase5-dev \
-libqt5opengl5-dev \
-libboost-all-dev \
-libgsl-dev \
-libfftw3-dev \
-python3-dev \
-zlib1g-dev
---
-
-9. CONFIGURE ICETRAY
---
+git clone https://://github.com/icecube/icetray-public.git i3/icetray
+mkdir -p ~/i3/build
 cd ~/i3/build
-
-cmake ..
-
-10. BUILD ICETRAY
-
---
+cmake ../icetray
 make -j8
---
+source env-shell.sh
+python -c "from icecube import dataio; print('IceTray OK')"
+```
 
-Verify:
+## Local IceTray Installation (macOS)
 
---
-ls ~/i3/build/bin/steamshovel
---
+``` bash
+xcode-select --install
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install git cmake boost gsl fftw qt@5 python
+git clone https://github.com/icecube/icetray-public.git i3/icetray
+mkdir -p ~/i3/build
+cd ~/i3/build
+cmake ../icetray
+make -j$(sysctl -n hw.ncpu)
+source env-shell.sh
+```
 
-==================================================
-11. DOWNLOAD EXAMPLE EVENT
-==================================================
+## Launching Steamshovel
 
-Copy from HPCC:
+``` bash
+cd ~/i3/build
+source env-shell.sh
 
---
-scp <NETID>@dev-amd20:/mnt/research/IceCube/Gupta-Reco/l322645/0000000-0000999/FinalLevel_NuMu_NuGenCCNC.022853.000354.i3.zst .
---
-Decompress:
---
-unzstd FinalLevel_NuMu_NuGenCCNC.022853.000354.i3.zst
-
-12. TROUBLESHOOTING
-
-Error:
---
-ModuleNotFoundError: No module named 'icecube'
---
-
-Fix:
---
-export SROOTBASE=/cvmfs/icecube.opensciencegrid.org/py3-v4.3.0
-
-eval `$SROOTBASE/setup.sh`
---
-
-
-Error:
-
-ModuleNotFoundError: No module named 'feather’
-
-Fix:
-
---
-python -m pip install --user feather-format
---
-Error:
-
---
-No objects to concatenate
---
-
-Cause:
-
---
-No files matched input pattern
---
-
-Verify:
-
---
-print(infiles)
-
-
-see https://github.com/HansN87/TriplePandelReco_JAX/tree/main/examples/scripts for example usage.
+./bin/steamshovel \
+/path/to/GeoCalibDetectorStatus.i3.gz \
+/path/to/event_file.i3
+```
